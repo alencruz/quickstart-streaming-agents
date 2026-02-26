@@ -49,7 +49,9 @@ dependencies = [
     "azure-mgmt-resource>=23.0.0",
     "azure-ai-inference>=1.0.0b1",
     "requests>=2.31.0",
-    "confluent-kafka>=2.3.0",
+    "confluent-kafka[avro,schema-registry]>=2.3.0",
+    "questionary>=2.0.0",
+    "rich>=13.0.0",
 ]
 
 # Optional dependencies for enhanced functionality
@@ -57,6 +59,8 @@ dependencies = [
 dev = [
     "pytest>=7.0.0",
     "pytest-cov>=4.0.0",
+    "pytest-timeout>=2.2.0",
+    "pytest-order>=1.2.0",
     "black>=23.0.0",
     "isort>=5.12.0",
     "flake8>=6.0.0",
@@ -64,20 +68,22 @@ dev = [
     "detect-secrets>=1.5.0",
     "pre-commit>=3.5.0",
 ]
-mongodb = [
-    "pymongo>=4.0.0,<5.0",
-]
 
 
 [project.scripts]
 deploy = "deploy:main"
+deploy2 = "scripts.common.deploy2:main"
 destroy = "scripts.common.destroy:main"
+destroy2 = "scripts.common.destroy2:main"
 #
 lab1_datagen = "scripts.lab1_datagen:main"
 lab1-datagen = "scripts.lab1_datagen:main"
 #
 lab3_datagen = "scripts.lab3_datagen:main"
 lab3-datagen = "scripts.lab3_datagen:main"
+#
+lab4_datagen = "scripts.lab4_datagen:main"
+lab4-datagen = "scripts.lab4_datagen:main"
 #
 publish_lab3_data = "scripts.publish_lab3_data:main"
 publish-lab3-data = "scripts.publish_lab3_data:main"
@@ -118,6 +124,14 @@ validate = "scripts.common.validate:main"
 #
 test_mongodb = "scripts.common.test_mongodb_connections:main"
 test-mongodb = "scripts.common.test_mongodb_connections:main"
+#
+test_cosmosdb = "scripts.common.test_cosmosdb_credentials:main"
+test-cosmosdb = "scripts.common.test_cosmosdb_credentials:main"
+#
+test_mongodb_creds = "scripts.common.test_mongodb_credentials:main"
+test-mongodb-creds = "scripts.common.test_mongodb_credentials:main"
+#
+tests = "scripts.run_tests:main"
 
 
 [project.urls]
@@ -189,7 +203,7 @@ warn_unreachable = true
 strict_equality = true
 
 [tool.pytest.ini_options]
-testpaths = ["tests"]
+testpaths = ["testing"]
 python_files = ["test_*.py", "*_test.py"]
 python_classes = ["Test*"]
 python_functions = ["test_*"]
@@ -197,7 +211,5 @@ addopts = [
     "--strict-markers",
     "--strict-config",
     "--verbose",
-    "--cov=scripts",
-    "--cov-report=term-missing",
-    "--cov-report=html",
+    "-s",  # Show output in real-time (capture=no)
 ]
