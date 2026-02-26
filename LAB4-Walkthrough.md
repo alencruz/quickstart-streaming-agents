@@ -4,20 +4,45 @@
 
 This demo showcases an intelligent, real-time fraud detection system that autonomously identifies suspicious claim patterns in FEMA disaster assistance applications. Built on [Confluent Intelligence](https://www.confluent.io/product/confluent-intelligence/), the system combines stream processing, anomaly detection, and AI-powered analysis to detect organized fraud rings and policy violations in real-time.
 
+## Running this lab in GitHub Codespaces (optional but recommended for workshops)
+
+You can run this lab in two ways:
+
+- **Locally** on your own machine (original path), or
+- **In GitHub Codespaces**, using only a web browser and a GitHub account.
+
+When using GitHub Codespaces:
+
+1. Open this repository on GitHub.
+2. Click **Code → Codespaces → Create codespace** on the branch you want to use.
+3. Wait for the dev container to build and the Codespace to open in your browser.
+4. Run all shell commands in this lab (for example `uv run deploy`, `uv run lab4_datagen`, `uv run destroy`) from the **Integrated Terminal** inside the Codespace.
+5. Use your **local browser** (outside Codespaces) to access:
+   - The [Flink UI](https://confluent.cloud/go/flink)
+   - Other Confluent Cloud UI pages
+   - AWS / Azure portals as needed for credentials
+
+If you are following this as part of a workshop, your instructor will tell you whether to use the **local** or **Codespaces** option.
+
 ## Prerequisites
 
-**Installation instructions:**
+You can either:
+
+- **Run locally** and install the tools on your machine, or
+- **Run in GitHub Codespaces**, where these tools are preinstalled in a dev container.
+
+**Local installation (macOS)**
 
 ```bash
 brew install uv git python && brew tap hashicorp/tap && brew install hashicorp/tap/terraform && brew install --cask confluent-cli
 ```
 
-**Windows:**
+**Local installation (Windows)**
 ```powershell
 winget install astral-sh.uv Git.Git Hashicorp.Terraform ConfluentInc.Confluent-CLI Python.Python
 ```
 
-Once software is installed, you'll need:
+Once software is installed (or your Codespace is ready), you'll need:
 - **LLM API keys:** AWS Bedrock API keys **OR** Azure OpenAI endpoint + API key
   - **Easy key creation:** Run `uv run api-keys create` to quickly auto-generate credentials
 
@@ -25,7 +50,7 @@ Once software is installed, you'll need:
 
 ## Deploy the Demo
 
-First, clone the repo:
+First, clone the repo (either locally or inside your Codespace terminal):
 
 ```bash
 git clone https://github.com/confluentinc/quickstart-streaming-agents.git
@@ -37,6 +62,7 @@ Once you have your credentials ready, run the deployment script and choose **Lab
 ```bash
 uv run deploy
 ```
+Run this from your **development environment** (local terminal or Codespace terminal).
 
 The deployment script will prompt you for your:
 - Cloud provider (AWS/Azure)
