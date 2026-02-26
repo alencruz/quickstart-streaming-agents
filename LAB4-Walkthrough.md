@@ -43,6 +43,8 @@ winget install astral-sh.uv Git.Git Hashicorp.Terraform ConfluentInc.Confluent-C
 ```
 
 Once software is installed (or your Codespace is ready), you'll need:
+- **Confluent Cloud credentials** 
+  - [![Sign up for Confluent Cloud](https://img.shields.io/badge/Sign%20up%20for%20Confluent%20Cloud-007BFF?style=for-the-badge&logo=apachekafka&logoColor=white)](https://www.confluent.io/get-started/?utm_campaign=tm.pmm_cd.q4fy25-quickstart-streaming-agents&utm_source=github&utm_medium=demo)
 - **LLM API keys:** AWS Bedrock API keys **OR** Azure OpenAI endpoint + API key
   - **Easy key creation:** Run `uv run api-keys create` to quickly auto-generate credentials
 
@@ -56,8 +58,11 @@ First, if running locally, clone the repo (if using Codespace this is already do
 git clone https://github.com/confluentinc/quickstart-streaming-agents.git
 cd quickstart-streaming-agents
 ```
-
-Once you have your credentials ready, run the deployment script and choose **Lab4**:
+Log in to Confluent Cloud
+```bash
+confluent login
+```
+Once you have your LLM API credentials ready, run the deployment script and choose **Lab4**:
 
 ```bash
 uv run deploy
