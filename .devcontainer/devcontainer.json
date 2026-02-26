@@ -1,0 +1,21 @@
+{
+  "name": "quickstart-streaming-agents",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".devcontainer"
+  },
+  "settings": {
+    "terminal.integrated.defaultProfile.linux": "bash"
+  },
+  "features": {},
+  "postCreateCommand": "",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-python.python",
+        "HashiCorp.terraform",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  }
+}
