@@ -2,7 +2,7 @@
   "name": "quickstart-streaming-agents",
   "build": {
     "dockerfile": "Dockerfile",
-    "context": ".devcontainer"
+    "context": ".."
   },
   "settings": {
     "terminal.integrated.defaultProfile.linux": "bash"
