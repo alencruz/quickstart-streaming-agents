@@ -31,9 +31,8 @@ RUN curl -fsSL https://apt.releases.hashicorp.com/gpg | \
     rm -rf /var/lib/apt/lists/*
 
 # uv (Python package / dependency manager)
-# For latest instructions, see: https://astral.sh/uv
-RUN curl -LsSf https://astral.sh/uv/install.sh | sh && \
-    ln -s /root/.local/bin/uv /usr/local/bin/uv || true
+# Install uv directly into /usr/local/bin so it's on PATH for all users
+RUN curl -LsSf https://astral.sh/uv/install.sh | env UV_UNMANAGED_INSTALL=/usr/local/bin/uv sh
 
 # Confluent CLI
 WORKDIR /tmp

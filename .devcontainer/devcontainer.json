@@ -5,7 +5,9 @@
     "context": ".."
   },
   "settings": {
-    "terminal.integrated.defaultProfile.linux": "bash"
+    "terminal.integrated.defaultProfile.linux": "bash",
+    // Make new terminals open as editor tabs (big, central) instead of in the bottom panel
+    "terminal.integrated.defaultLocation": "editor"
   },
   "features": {},
   "postCreateCommand": "",
