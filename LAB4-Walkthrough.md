@@ -50,7 +50,7 @@ Once software is installed (or your Codespace is ready), you'll need:
 
 ## Deploy the Demo
 
-First, clone the repo (either locally or inside your Codespace terminal):
+First, if running locally, clone the repo (if using Codespace this is already done and your terminal starts inside the project):
 
 ```bash
 git clone https://github.com/confluentinc/quickstart-streaming-agents.git
