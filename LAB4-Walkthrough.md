@@ -4,7 +4,7 @@
 
 This demo showcases an intelligent, real-time fraud detection system that autonomously identifies suspicious claim patterns in FEMA disaster assistance applications. Built on [Confluent Intelligence](https://www.confluent.io/product/confluent-intelligence/), the system combines stream processing, anomaly detection, and AI-powered analysis to detect organized fraud rings and policy violations in real-time.
 
-## Running this lab in GitHub Codespaces (optional but recommended for workshops)
+## Running this lab in GitHub Codespaces (optional but recommended for users with restricted access to their device)
 
 You can run this lab in two ways:
 
@@ -13,7 +13,7 @@ You can run this lab in two ways:
 
 When using GitHub Codespaces:
 
-1. Login to your GitHub account.
+1. Login to your GitHub account (must **not** have Confluent organizational access).
 2. Open this repository on GitHub.
 3. Click **Code → Codespaces → Create codespace** on the branch you want to use (master).
 4. Wait for the dev container to build and the Codespace to open in your browser.
@@ -28,15 +28,15 @@ When using GitHub Codespaces:
 You can either:
 
 - **Run locally** and install the tools on your machine, or
-- **Run in GitHub Codespaces**, where these tools are preinstalled in a dev container, skip to "Deploy the Demo"
+- **Run in GitHub Codespaces**, where these tools are preinstalled in a dev container
 
-**Local installation (macOS)**
+**Local installation on macOS**
 
 ```bash
 brew install uv git python && brew tap hashicorp/tap && brew install hashicorp/tap/terraform && brew install --cask confluent-cli
 ```
 
-**Local installation (Windows)**
+**Local installation on Windows**
 ```powershell
 winget install astral-sh.uv Git.Git Hashicorp.Terraform ConfluentInc.Confluent-CLI Python.Python
 ```
