@@ -81,7 +81,7 @@ Select **"Lab 4: FEMA Fraud Detection"** from the menu.
 
 ### Data Generation
 
-The Lab4 Terraform automatically publishes ~36,000 synthetic claims across 8 Florida cities. The hurricane claims begin 14 days before the current date (the day of the hurricane), and continue through today.
+The Lab4 Terraform automatically publishes ~36,000 synthetic claims across 8 Florida cities. The hurricane claims begin 14 days before the current date (on the day of the hurricane), and continue through today.
 
 The data includes:
 - **`claims`** table – synthetic disaster assistance claims with applicant info, damage assessments, claim amounts, and detailed narratives
