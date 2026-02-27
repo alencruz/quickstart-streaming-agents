@@ -4,44 +4,74 @@
 
 This demo showcases an intelligent, real-time fraud detection system that autonomously identifies suspicious claim patterns in FEMA disaster assistance applications. Built on [Confluent Intelligence](https://www.confluent.io/product/confluent-intelligence/), the system combines stream processing, anomaly detection, and AI-powered analysis to detect organized fraud rings and policy violations in real-time.
 
+## Running this lab in GitHub Codespaces (optional but recommended for workshops)
+
+You can run this lab in two ways:
+
+- **Locally** on your own machine (original path), or
+- **In GitHub Codespaces**, using only a web browser and a GitHub account.
+
+When using GitHub Codespaces:
+
+1. Login to your GitHub account.
+2. Open this repository on GitHub.
+3. Click **Code → Codespaces → Create codespace** on the branch you want to use (master).
+4. Wait for the dev container to build and the Codespace to open in your browser.
+5. Run all shell commands in this lab (for example `uv run deploy`, `uv run lab4_datagen`, `uv run destroy`) from the **Integrated Terminal** inside the Codespace.
+6. Use your **local browser** (outside Codespaces) to access:
+   - The [Flink UI](https://confluent.cloud/go/flink)
+   - Other Confluent Cloud UI pages
+   - AWS / Azure portals as needed for credentials
+
 ## Prerequisites
 
-**Installation instructions:**
+You can either:
+
+- **Run locally** and install the tools on your machine, or
+- **Run in GitHub Codespaces**, where these tools are preinstalled in a dev container, skip to "Deploy the Demo"
+
+**Local installation (macOS)**
 
 ```bash
 brew install uv git python && brew tap hashicorp/tap && brew install hashicorp/tap/terraform && brew install --cask confluent-cli
 ```
 
-**Windows:**
+**Local installation (Windows)**
 ```powershell
 winget install astral-sh.uv Git.Git Hashicorp.Terraform ConfluentInc.Confluent-CLI Python.Python
 ```
 
-Once software is installed, you'll need:
+Once software is installed (or your Codespace is ready), you'll need:
+- **Confluent Cloud credentials** 
+  - [![Sign up for Confluent Cloud](https://img.shields.io/badge/Sign%20up%20for%20Confluent%20Cloud-007BFF?style=for-the-badge&logo=apachekafka&logoColor=white)](https://www.confluent.io/get-started/?utm_campaign=tm.pmm_cd.q4fy25-quickstart-streaming-agents&utm_source=github&utm_medium=demo)
 - **LLM API keys:** AWS Bedrock API keys **OR** Azure OpenAI endpoint + API key
-  - **Easy key creation:** Run `uv run api-keys create` to quickly auto-generate credentials
+  - **Workshop participants:** The LLM keys will be provided for you
+  - **Easy key creation:** Run `uv run api-keys create` to quickly auto-generate LLM credentials using your cloud account
 
 ---
 
 ## Deploy the Demo
 
-First, clone the repo:
+First, if running locally, clone the repo (if using Codespace this is already done and your terminal starts inside the project):
 
 ```bash
 git clone https://github.com/confluentinc/quickstart-streaming-agents.git
 cd quickstart-streaming-agents
 ```
-
-Once you have your credentials ready, run the deployment script and choose **Lab4**:
+Log in to Confluent Cloud
+```bash
+confluent login
+```
+Once you have your LLM API credentials ready, run the deployment script and choose **Lab4**:
 
 ```bash
 uv run deploy
 ```
+Run this from your **development environment** (local terminal or Codespace terminal).
 
 The deployment script will prompt you for your:
 - Cloud provider (AWS/Azure)
 - LLM API keys (Bedrock keys or Azure OpenAI endpoint/key)
-- Confluent Cloud credentials
 
 Select **"Lab 4: FEMA Fraud Detection"** from the menu.
 
@@ -51,7 +81,7 @@ Select **"Lab 4: FEMA Fraud Detection"** from the menu.
 
 ### Data Generation
 
-The Lab4 Terraform automatically publishes ~36,000 synthetic claims across 8 Florida cities. The hurricane claims begin 14 days before the current date (the day of the hurricane), and continue through today.
+The Lab4 Terraform automatically publishes ~36,000 synthetic claims across 8 Florida cities. The hurricane claims begin 14 days before the current date (on the day of the hurricane), and continue through today.
 
 The data includes:
 - **`claims`** table – synthetic disaster assistance claims with applicant info, damage assessments, claim amounts, and detailed narratives
