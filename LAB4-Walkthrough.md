@@ -137,7 +137,7 @@ All other regions show a steady downward slope as claims taper off post-disaster
 
 ### 1. Detect Fraud Spikes Using `ML_DETECT_ANOMALIES`
 
-This step identifies unexpected surges in claim amounts for each city in real time using Flink's built-in anomaly detection function. We analyze claim amounts over 3-hour windows and compare them against expected baselines derived from historical trends.
+This step identifies unexpected surges in claim amounts for each city in real time using Flink's built-in anomaly detection function. We analyze claim amounts over 6-hour windows and compare them against expected baselines derived from historical trends.
 
 Read the [blog post](https://docs.confluent.io/cloud/current/ai/builtin-functions/detect-anomalies.html) and view the [documentation](https://docs.confluent.io/cloud/current/flink/reference/functions/model-inference-functions.html#flink-sql-ml-anomaly-detect-function) on Flink anomaly detection for more details.
 
@@ -176,7 +176,7 @@ anomaly_detection AS (
             JSON_OBJECT(
                 'minTrainingSize' VALUE 8,
                 'maxTrainingSize' VALUE 50,
-                'confidencePercentage' VALUE 95.0,
+                'confidencePercentage' VALUE 75.0,
                 'enableStl' VALUE FALSE
             )
         ) OVER (
@@ -204,11 +204,11 @@ WHERE anomaly_result.is_anomaly = true
 
 **What it does:**
 1. **Sets state TTL** to 14 days to prevent infinite state growth
-2. **Aggregates** claims into 3-hour tumbling windows per city
+2. **Aggregates** claims into 6-hour tumbling windows per city
 3. **Applies ML_DETECT_ANOMALIES** using ARIMA time-series forecasting:
-   - `minTrainingSize: 16` – Needs 2 days (16 windows) of baseline before detecting
+   - `minTrainingSize: 8` – Needs 2 days (16 windows) of baseline before detecting
    - `maxTrainingSize: 50` – Caps training data; prevents memory issues
-   - `confidencePercentage: 95.0` – Detects significant deviations
+   - `confidencePercentage: 75.0` – Detects significant deviations
    - `enableStl: FALSE` – No seasonal decomposition (disaster claims lack seasonality)
 4. **Filters** to only anomalous spikes (above upper confidence bound)
 
@@ -667,7 +667,7 @@ The result is a deep, autonomous investigation of every flagged claim resulting 
 **Check:**
 1. Re-publish : `uv run lab4_datagen`
 2. Claims published to topic: `SELECT COUNT(*) FROM claims;` (should be ~36,000)
-3. Wait for baseline: ARIMA needs 16 windows (2 days with 3-hour windows) before detecting
+3. Wait for baseline: ARIMA needs 8 windows (2 days with 6-hour windows) before detecting
 
 The anomaly should appear after data publishing completes and Flink processes all windows up to Day 3.
 
@@ -686,11 +686,11 @@ Run the CREATE TABLE query in the Flink UI (see Step 1 above). The anomaly detec
 
 ### Too many or too few anomalies?
 
-The ARIMA parameters are tuned to detect exactly 1 anomaly (Naples, Day 3).
+The ARIMA parameters are tuned to detect 2 anomalies in Naples.
 
 If you see different results:
-- **0 anomalies:** Decrease `confidencePercentage` to 90.0
-- **>3 anomalies:** Increase `confidencePercentage` to 99.0
+- **0 anomalies:** Decrease `confidencePercentage` to 55.0
+- **>2 anomalies:** Increase `confidencePercentage` to 95.0
 - **Wrong timing:** Re-publish data: `uv run lab4_datagen`
 
 </details>
